@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reader by ID</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Surname</td>
+        <td>Name</td>
+        <td>Patronymic</td>
+        <td>Age</td>
+    </tr>
+    <tr>
+        <td th:text = "${reader.getId()}">test</td>
+        <td th:text = "${reader.getSurname()}">test</td>
+        <td th:text = "${reader.getName()}">test</td>
+        <td th:text = "${reader.getPatronymic()}">test</td>
+        <td th:text = "${reader.getAge()}">test</td>
+    </tr>
+</table>
+
+<br/>
+<hr/>
+<form th:action = "@{/readers/{id}/edit (id = ${reader.getId()})}" target="">
+    <button>Edit</button>
+</form>
+
+<br/>
+<hr/>
+<form th:method="DELETE" th:action = "@{/readers/{id} (id = ${reader.getId()})}">
+    <button>Delete</button>
+</form>
+
+<br/>
+<hr/>
+<form action="/readers">
+    <button>Exit</button>
+</form>
+</body>
+</html>

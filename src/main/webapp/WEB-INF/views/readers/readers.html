@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Readers</title>
+</head>
+<body>
+
+<h2>Table readers</h2>
+<hr/>
+<table>
+    <tr>
+        <td>Surname</td>
+        <td>Name</td>
+        <td>Patronymic</td>
+        <td>Age</td>
+        <td>URL</td>
+    </tr>
+    <tr th:each = "readers : ${allReaders}">
+        <td th:text = "${readers.getSurname()}">test</td>
+        <td th:text = "${readers.getName()}">test</td>
+        <td th:text = "${readers.getPatronymic()}">test</td>
+        <td th:text = "${readers.getAge()}">test</td>
+        <td><form th:action = "@{/readers/{id} (id = ${readers.getId()})}">
+            <button>info / update / delete </button>
+        </form>
+    </tr>
+</table>
+
+<br/>
+<hr/>
+<form action="/readers/new">
+    <button>Create new reader</button>
+</form>
+<form action="/index.jsp">
+    <button>Back</button>
+</form>
+</body>
+</html>
