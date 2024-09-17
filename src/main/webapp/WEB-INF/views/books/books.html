@@ -13,18 +13,26 @@
         <td>Name Book</td>
         <td>Author book</td>
         <td>Year of publication</td>
+        <td>Status</td>
         <td>URL</td>
     </tr>
     <tr th:each = "book : ${books}">
         <td th:text = "${book.getName()}">test</td>
         <td th:text = "${book.getAuthor()}">test</td>
         <td th:text = "${book.getYearOfPublication()}">test</td>
+        <td style="color: red" th:if = "${book.getHand()}" th:text = "'book in hand'" >test</td>
+        <td style="color: green" th:unless = "${book.getHand()}" th:text = "'book in the library'" >test</td>
         <td><form th:action = "@{/books/{id} (id = ${book.getId()})}">
             <button>info / update / delete </button>
         </form>
     </tr>
 </table>
-
+<br>
+<hr/>
+<div th:text = "'<Statistic>'"></div>
+<div th:text = "'All book: '+${allBooks}"></div>
+<div th:text = "'Busy book: '+${busyBook}"></div>
+<div th:text = "'Free book: '+${freeBook}"></div>
 <br/>
 <hr/>
 <form action="/books/new">

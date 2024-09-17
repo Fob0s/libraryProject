@@ -83,4 +83,9 @@ public class LibraryReader {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    public String getFullName() {
+        return String.format("%s %s %s", surname, name, patronymic);
+    }
+
 }

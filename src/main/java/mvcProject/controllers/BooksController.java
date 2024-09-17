@@ -3,7 +3,6 @@ package mvcProject.controllers;
 import jakarta.validation.Valid;
 import mvcProject.DAO.BookDAO;
 import mvcProject.model.Book;
-import mvcProject.model.LibraryReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +22,9 @@ public class BooksController {
     @GetMapping()
     public String showAll(Model model) {
         model.addAttribute("books", bookDAO.showAll());
+        model.addAttribute("allBooks", bookDAO.countAllBook());
+        model.addAttribute("busyBook", bookDAO.countBusyBook());
+        model.addAttribute("freeBook", bookDAO.countFreeBook());
         return "books/books";
     }
 
@@ -33,6 +35,7 @@ public class BooksController {
     }
     @GetMapping("/new")
     public String newBook(@ModelAttribute("newBook") Book book) {
+        System.out.println("run new book");
         return "books/newBook";
     }
     @PostMapping()

@@ -3,6 +3,8 @@ package mvcProject.model;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.Optional;
+
 public class Book {
     private int id;
     @NotEmpty(message = "The book name must not be empty")
@@ -13,13 +15,17 @@ public class Book {
     @Min(value = 0, message = "gg")
     private int yearOfPublication;
 
+    private Integer id_reader;
+
+
     public Book() {
     }
 
-    public Book(String name, String author, int yearOfPublication) {
+    public Book(String name, String author, int yearOfPublication, Integer id_reader) {
         this.name = name;
         this.author = author;
         this.yearOfPublication = yearOfPublication;
+        this.id_reader = id_reader;
     }
 
     public int getId() {
@@ -49,8 +55,28 @@ public class Book {
     public int getYearOfPublication() {
         return yearOfPublication;
     }
-
     public void setYearOfPublication(int yearOfPublication) {
         this.yearOfPublication = yearOfPublication;
+    }
+
+
+    public Integer getId_reader() {
+        if (id_reader == null){
+            return 0;
+        }else {
+            return id_reader;
+        }
+    }
+
+    public void setId_reader(Integer id_reader) {
+        this.id_reader = id_reader;
+    }
+
+    public boolean getHand() {
+        if (getId_reader() > 0) {
+            return true;
+        }else {
+            return false;
+        }
     }
 }

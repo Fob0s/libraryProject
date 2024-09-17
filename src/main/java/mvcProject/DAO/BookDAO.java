@@ -1,7 +1,6 @@
 package mvcProject.DAO;
 
 import mvcProject.model.Book;
-import mvcProject.model.LibraryReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,9 +11,9 @@ import java.util.List;
 @Component
 public class BookDAO {
 
-    @Autowired
-    private final JdbcTemplate jdbcTemplate;
 
+    private final JdbcTemplate jdbcTemplate;
+    @Autowired
     public BookDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -42,11 +41,30 @@ public class BookDAO {
         jdbcTemplate.update("delete from mvc_schema.books where id = ?", id);
     }
 
-    public void setReader(LibraryReader reader, int id) {
-        jdbcTemplate.update("update mvc_schema.books set id_reader = ? where id = ?", reader.getId(), id);
+
+    public void setReader(int idReader, int idBook) {
+        jdbcTemplate.update("update mvc_schema.books set id_reader = ? where id = ?", idReader, idBook);
     }
 
     public void removeReader(int id) {
         jdbcTemplate.update("update mvc_schema.books set id_reader = ? where id = ?", null, id);
     }
+
+    public int countAllBook() {
+        return jdbcTemplate.query("select * from mvc_schema.books", new BeanPropertyRowMapper<>(Book.class)).size();
+    }
+
+    public List<Book> freeBook() {
+        return jdbcTemplate.query("select * from mvc_schema.books where id_reader is null", new BeanPropertyRowMapper<>(Book.class));
+    }
+
+    public int countFreeBook() {
+        return freeBook().size();
+    }
+
+    public int countBusyBook() {
+        return jdbcTemplate.query("select * from mvc_schema.books where id_reader notnull", new BeanPropertyRowMapper<>(Book.class)).size();
+    }
+
+
 }
