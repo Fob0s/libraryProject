@@ -1,47 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Get Book</title>
+    <title>Select</title>
 </head>
 <body>
+<h2>Select</h2>
 
-<form th:method="PATCH" th:action="@{/admin/get}">
-    <label for = "reader"> Select reader</label>
-    <select id="reader" name="readerId">
-        <option value=""  disabled selected> check</option>
-        <option th:each = "reader : ${allReaders}" th:value="${reader.getId()}" th:text = "${reader.getFullName()}"></option>
+<form th:action="@{/admin/submit}" th:method="POST" th:object="${formData}">
+    <label for = "reader">Select reader</label>
+    <select id = "reader" name="reader">
+        <option value="" disabled selected>select</option>
+        <option type="text" th:field="*{reader}" th:each="reader :${allReaders}" th:value="${reader.getId()}" th:text="${reader.getFullName()}"></option>
     </select>
 
-
-    <label for = "book"> Select reader</label>
-    <select id="book" name="bookId">
-        <option value=""  disabled selected> check</option>
-        <option th:each = "book : ${freeBook}" th:value="${book.getId()}" th:text = "${book.getName()}"></option>
+    <label for = "book">Select book</label>
+    <select id = "book" name="book">
+        <option value="" disabled selected>select</option>
+        <option type="text" th:field="*{book}" th:each="book :${freeBook}" th:value="${book.getId()}" th:text="${book.name}"></option>
     </select>
 
-    <button type="submit">check</button>
+    <br/><br/>
+
+    <button type="submit">Get book</button>
 </form>
-
-</body>
-</html>
-
-<!--<form th:method="PATCH" th:action="@{/admin/get}">-->
-<!--    <label for="reader"> Select reader</label>-->
-<!--    <select id="reader" th:field="*{libraryReader}">-->
-<!--        <option value="reader">select</option>-->
-<!--        <option th:each="reader : ${allReaders}" th:value="${reader.getId()}" th:text = "${reader.getFullName()}">select</option>-->
-<!--    </select>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <label for="book"> Select book</label>-->
-<!--    <select id="book" name = "" th:field="*{book}">-->
-<!--        <option value="book">select</option>-->
-<!--        <option th:each="book : ${freeBook}" th:value="${book}" th:text = "${book.getName()}">select</option>-->
-<!--    </select>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <br>-->
-<!--    <input type="submit" value="Get book">-->
-<!--</form>-->

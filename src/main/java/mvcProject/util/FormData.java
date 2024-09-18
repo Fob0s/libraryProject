@@ -4,22 +4,22 @@ import mvcProject.model.Book;
 import mvcProject.model.LibraryReader;
 
 public class FormData {
-    private  LibraryReader libraryReader;
-    private Book book;
+    private int reader;
+    private int book;
 
-    public LibraryReader getLibraryReader() {
-        return libraryReader;
+    public int getReader() {
+        return reader;
     }
 
-    public void setLibraryReader(LibraryReader libraryReader) {
-        this.libraryReader = libraryReader;
+    public void setReader(int reader) {
+        this.reader = reader;
     }
 
-    public Book getBook() {
+    public int getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(int book) {
         this.book = book;
     }
 }
