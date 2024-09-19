@@ -3,7 +3,6 @@ package mvcProject.model;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 
-import java.util.Optional;
 
 public class Book {
     private int id;

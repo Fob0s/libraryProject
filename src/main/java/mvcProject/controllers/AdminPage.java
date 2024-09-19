@@ -1,17 +1,15 @@
 package mvcProject.controllers;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import mvcProject.DAO.BookDAO;
 import mvcProject.DAO.LibraryReaderDAO;
-import mvcProject.model.Book;
-import mvcProject.model.LibraryReader;
 import mvcProject.util.FormData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,15 +34,33 @@ public class AdminPage {
         return "admin/getBook";
     }
 
+    @GetMapping("/return")
+    public String returnBook(Model model) {
+        model.addAttribute("bookInReader", bookDAO.getAllBookInReader());
+        model.addAttribute("formData", new FormData());
+        return "admin/returnBook";
+    }
+
+    @PostMapping("/returning")
+    public String returning(@ModelAttribute("formData") FormData formData) {
+        System.out.println(formData.getBook());
+        System.out.println(formData.getReader());
+        bookDAO.removeReader(formData.getBook());
+        return "/admin/start";
+    }
+
     @PostMapping("/submit")
-    public String getingBook(@ModelAttribute("formData") FormData formData) {
-        System.out.println("Formdata: "+formData.getReader()+" "+formData.getBook());
-        System.out.println("run post map");
-        LibraryReader libraryReader = libraryReaderDAO.readerById(formData.getReader());
-        Book book = bookDAO.showBookById(formData.getBook());
-        System.out.printf("Id: %d, fullName: %s%n", libraryReader.getId(), libraryReader.getFullName());
-        System.out.printf("Name: %s%n", book.getName());
-        bookDAO.setReader(libraryReader.getId(), book.getId());
-        return "redirect:/admin";
+    public String getingBook(@ModelAttribute("formData") @Valid FormData formData,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/getBook";
+        }
+        bookDAO.setReader(formData.getReader(), formData.getBook());
+        return "redirect:/admin/succesGetBook";
+    }
+
+    @GetMapping("/succesGetBook")
+    public String succesGetBook() {
+        return "admin/SuccesGetBook";
     }
 }

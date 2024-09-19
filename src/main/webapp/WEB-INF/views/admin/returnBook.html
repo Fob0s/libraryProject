@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Return Book</title>
 </head>
 <body>
-
+<h2>Return Book</h2>
+<form th:action="@{/admin/returning}" th:method="POST" th:object="${formData}">
+    <table>
+        <tr>
+            <td>Name Book</td>
+            <td>Reader</td>
+            <td>Return book</td>
+        </tr>
+        <tr th:each = "readersBook : ${bookInReader}">
+            <td th:text = "${readersBook.getNameBook()}">test</td>
+            <td th:text = "${readersBook.getNameAndSurname()}">test</td>
+            <td> <input name="book" id = "book" th:field = "*{book}"  th:value="${readersBook.idBook}"  type="submit"> </td>
+        </tr>
+    </table>
+</form>
 </body>
 </html>

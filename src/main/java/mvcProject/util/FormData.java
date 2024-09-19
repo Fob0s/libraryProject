@@ -1,10 +1,12 @@
 package mvcProject.util;
 
-import mvcProject.model.Book;
-import mvcProject.model.LibraryReader;
+import jakarta.validation.constraints.Positive;
 
 public class FormData {
+    @Positive(message = "Do not selected reader")
     private int reader;
+
+    @Positive(message = "Do not selected book")
     private int book;
 
     public int getReader() {

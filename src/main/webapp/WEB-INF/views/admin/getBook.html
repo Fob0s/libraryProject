@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Select</title>
+    <title>Select reader and book</title>
 </head>
 <body>
-<h2>Select</h2>
+<h2>Select reader and book</h2>
 
 <form th:action="@{/admin/submit}" th:method="POST" th:object="${formData}">
     <label for = "reader">Select reader</label>
@@ -12,14 +12,22 @@
         <option value="" disabled selected>select</option>
         <option type="text" th:field="*{reader}" th:each="reader :${allReaders}" th:value="${reader.getId()}" th:text="${reader.getFullName()}"></option>
     </select>
-
+    <div style="color: red" th:if="${#fields.hasErrors('reader')}" th:errors="*{reader}">Name Eror</div>
+<br>
+<br>
     <label for = "book">Select book</label>
     <select id = "book" name="book">
         <option value="" disabled selected>select</option>
         <option type="text" th:field="*{book}" th:each="book :${freeBook}" th:value="${book.getId()}" th:text="${book.name}"></option>
     </select>
+    <div style="color: red" th:if="${#fields.hasErrors('book')}" th:errors="*{book}">Name Eror</div>
 
     <br/><br/>
 
     <button type="submit">Get book</button>
+    <br/><br/>
+</form>
+
+<form action="/admin">
+    <button>Back to admin page</button>
 </form>
