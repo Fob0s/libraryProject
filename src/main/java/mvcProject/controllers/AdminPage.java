@@ -43,10 +43,8 @@ public class AdminPage {
 
     @PostMapping("/returning")
     public String returning(@ModelAttribute("formData") FormData formData) {
-        System.out.println(formData.getBook());
-        System.out.println(formData.getReader());
         bookDAO.removeReader(formData.getBook());
-        return "/admin/start";
+        return "redirect:/admin/SuccerReturnBook";
     }
 
     @PostMapping("/submit")
@@ -62,5 +60,9 @@ public class AdminPage {
     @GetMapping("/succesGetBook")
     public String succesGetBook() {
         return "admin/SuccesGetBook";
+    }
+    @GetMapping("/SuccerReturnBook")
+    public String succesReturnBook() {
+        return "admin/SuccerReturnBook";
     }
 }

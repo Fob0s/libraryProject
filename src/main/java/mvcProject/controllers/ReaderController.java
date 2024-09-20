@@ -52,7 +52,6 @@ public class ReaderController {
     @PatchMapping("/{id}")
     public String editReader(@ModelAttribute("reader") @Valid LibraryReader libraryReader,
                              BindingResult bindingResult, @PathVariable("id") int id) {
-        libraryReaderValidator.validate(libraryReader, bindingResult);
         if (bindingResult.hasErrors()) {
             return "readers/edit";
         }
